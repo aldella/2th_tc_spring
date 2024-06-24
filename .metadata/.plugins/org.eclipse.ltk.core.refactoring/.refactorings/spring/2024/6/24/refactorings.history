@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;spring/src/main/java/com/kh/spring/checklombok.java&apos; to &apos;StringRun.java&apos;" description="Rename resource &apos;checklombok.java&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/main/java/com/kh/spring/checklombok.java" name="StringRun.java" stamp="1718237611271" updateReferences="true"/>
+</session>

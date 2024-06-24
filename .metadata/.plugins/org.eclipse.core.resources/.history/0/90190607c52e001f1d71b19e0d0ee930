@@ -1,0 +1,6 @@
+package com.kh.spring.board.model.repository;
+
+@Repository
+public class BoardRepository {
+
+}

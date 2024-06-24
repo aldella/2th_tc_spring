@@ -1,0 +1,6 @@
+package com.kh.spring.board.model.service;
+
+@Repository
+public class BoardServiceImp1 {
+
+}

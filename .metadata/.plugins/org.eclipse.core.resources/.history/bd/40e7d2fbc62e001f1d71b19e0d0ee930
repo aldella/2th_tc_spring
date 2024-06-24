@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: 서버 구동과 동시에 web.xml을 거쳐서 바로 로딩되는 문서 == preloading
+	서버 구동과 동시에 바로 세팅(Bean등록)해야 하는 내용들을 작성
+	주로 DB 접속정보, 트랜잭션 처리, 외부모듈연결 등등... -->
+	
+	<bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource" destroy-method="close">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"></property>
+		<property name="username" value="C##BCLASS"></property>
+		<property name="password" value="BCLASS"></property>
+	</bean>
+	
+	<!-- 
+		객체가 필요할 때 Spring이 xml을 통해 실제 내부적으로 실행되는 코드
+		BasicDataSource dataSource = new BasicDataSource();
+		dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
+		dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
+		dataSource.setUsername("BCLASS");
+		dataSource.setPassword("BCLASS");
+	 -->
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<!-- 내부에서 돌아가는 코드
+		SqlSessionFactoryBean sqlSessionFactory = new sqlSessionFactoryBean();
+		sqlSessionFactory.setConfiglocation("classpath:mybatis-config.xml");
+		sqlSessionFactory.setDataSource(dataSource);
+	 -->
+	 
+	 <bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession">
+	 	<constructor-arg ref="sqlSessionFactory"/>
+	 </bean>
+	 <!-- 내부에서 돌아가는 코드
+	 	SqlSessionTemplate sqlSession = new SqlSessionTemplate(sqlSessionFactory);
+	  -->
+	<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id=multipartResolver">
+		<property name="maxUploadSize" value=""/>
+	</bean>
+	
+</beans>

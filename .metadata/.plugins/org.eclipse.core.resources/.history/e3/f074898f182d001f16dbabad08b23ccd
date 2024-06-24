@@ -1,0 +1,112 @@
+package com.kh.spring.member.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.kh.spring.member.model.service.MemberServiceImp1;
+import com.kh.spring.member.model.vo.Member;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@RequiredArgsConstructor
+@Slf4j
+@Controller
+public class MemberController {
+	
+	private final MemberServiceImp1 memberService;
+	private final HttpServletRequest request;
+	private final BCryptPasswordEncoder bCryptPassworEncoder;
+	
+	/*
+	@RequestMapping("login.do")
+	public String login(HttpServletRequest request) {
+		String userId = request.getParameter("id"); // jsp단에서 받아온 input text요소의 name값이 id
+		String userPwd = request.getParameter("pwd"); // jsp단에서 받아온 input text요소의 name값이 pwd
+		log.info(userId);
+		log.info(userPwd);
+		return "main";
+	}
+	*/
+	
+	/*
+	@RequestMapping("login.do")
+	public String login(@RequestParam(value="id") String userId, @RequestParam(value="pwd") String userPwd) {
+		log.info(userId);
+		log.info(userPwd);
+		return "main";
+	}*/
+	
+	/*
+	@RequestMapping("login.do")
+	public String login(Member member) {
+		Member loginMember = memberService.login(member);
+		log.info("가져온 멤버 : {}", loginMember);
+		return "main";
+	}*/
+	
+	/*
+	@RequestMapping("login.do")
+	public String login(Member member, Model model, HttpSession session) {
+		Member loginUser = memberService.login(member);
+		if(loginUser == null) { //로그인에 실패
+			model.addAttribute("errorMsg", "로그인실패");
+			return "common/errorPage";
+		} else {
+			session.setAttribute("loginUser", loginUser);
+			log.info("session데이터 : {}",session.getAttribute("loginUser"));
+		}
+		return "redirect:/";
+	}
+	*/
+	
+	@PostMapping("login.do")
+	public ModelAndView login(Member member, ModelAndView mv, HttpSession session) {
+		Member loginUser = memberService.login(member);
+		
+		if (loginUser != null) {
+			session.setAttribute("loginUser", loginUser);
+			mv.setViewName("redirect:/");
+		} else {
+			mv.addObject("errorMsg", "로그인 실패");
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	
+	@GetMapping("/member/{id}")
+	public void restTest(@PathVariable String id) {
+		 log.info("앞단에서 넘긴값 : {}",id);
+	}
+	
+	@GetMapping("logout.do")
+	public String logout(HttpSession session) {
+		//sessionScope에 존재하는 loginUser 제거
+		session.removeAttribute("loginUser");
+		return "redirect:/";
+	}
+	
+	@GetMapping("enroll.do")
+	public String enrollForm() {
+		return "member/enrollForm";
+	}
+	
+	@PostMapping("join.do")
+	public String memberJoin(Member member) {
+		log.info("회원가입 객체 : {}", member);
+		
+		log.info("평문 : {}", member.getUserPwd());
+		String encPwd = bcryptPasswordEncoder.encode(member.getUserPwd());
+		log.info("암호문 : {}", encPwd);
+		return "main";
+	}
+	
+	
+}
