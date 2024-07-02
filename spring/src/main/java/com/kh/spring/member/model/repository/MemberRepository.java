@@ -29,4 +29,9 @@ public class MemberRepository {
 		// TODO Auto-generated method stub
 		return sqlSession.update("memberMapper.delete",string);
 	}
+
+	public int idCheck(SqlSessionTemplate sqlSession, String checkId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("memberMapper.idCheck", checkId);
+	}
 }

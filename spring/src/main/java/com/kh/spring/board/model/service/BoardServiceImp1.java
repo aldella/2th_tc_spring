@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.spring.board.model.repository.BoardRepository;
 import com.kh.spring.board.model.vo.Board;
+import com.kh.spring.board.model.vo.Reply;
 
 import lombok.RequiredArgsConstructor;
 
@@ -70,6 +71,36 @@ public class BoardServiceImp1 implements BoardService{
 	public int boardCount() {
 		// TODO Auto-generated method stub
 		return boardRepository.boardCount(sqlSession);
+	}
+	
+	@Override
+	public List<Board> selectImages() {
+		return boardRepository.selectImages(sqlSession);
+	}
+	public String selectTest() {
+		// TODO Auto-generated method stub
+		return boardRepository.selectTest(sqlSession);
+	}
+	@Override
+	public List<Reply> selectReply(int boardNo) {
+		// TODO Auto-generated method stub
+		return boardRepository.selectReply(sqlSession, boardNo);
+	}
+	@Override
+	public int insertReply(Reply reply) {
+		return boardRepository.insertReply(sqlSession, reply);
+		// TODO Auto-generated method stub
+	}
+	@Override
+	public Board boardAndReply(int boardNo) {
+		return boardRepository.boardAndReply(sqlSession, boardNo);
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public List<Board> findTopFiveBoard() {
+		// TODO Auto-generated method stub
+		return boardRepository.findTopFiveBoard(sqlSession);
 	}
 	
 	

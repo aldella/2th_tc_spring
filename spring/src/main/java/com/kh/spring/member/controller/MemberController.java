@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.spring.member.model.service.MemberServiceImp1;
@@ -170,6 +171,12 @@ public class MemberController {
 			session.setAttribute("alertMsg", "비밀번호가 일치하지 않습니다");
 			return "redirect:mypage.do";
 		}
+	}
+	
+	@ResponseBody
+	@GetMapping("idCheck.do")
+	public String userId(String checkId) {
+		return memberService.idCheck(checkId) > 0 ? "NNNNN" : "NNNNY";
 	}
 	
 }

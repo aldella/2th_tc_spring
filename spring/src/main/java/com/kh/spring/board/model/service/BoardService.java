@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.RowBounds;
 
 import com.kh.spring.board.model.vo.Board;
+import com.kh.spring.board.model.vo.Reply;
 
 public interface BoardService {
 	
@@ -37,7 +38,16 @@ public interface BoardService {
 	
 	int boardCount();
 	
+	List<Board> selectImages();
 	
+	List<Reply> selectReply(int boardNo);
+	
+	int insertReply(Reply reply);
+	
+	Board boardAndReply(int boardNo);
+
+	List<Board> findTopFiveBoard();
+
 	
 	// --------------------------------------------댓글 관련 (AJAX)
 	

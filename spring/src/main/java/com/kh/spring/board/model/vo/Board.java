@@ -1,5 +1,7 @@
 package com.kh.spring.board.model.vo;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,4 +23,6 @@ public class Board {
 		private String createDate;
 		private String status;
 		
+		private List<Reply> replyList;
 }
+	

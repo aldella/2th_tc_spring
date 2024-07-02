@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.spring.board.model.vo.Board;
+import com.kh.spring.board.model.vo.Reply;
 
 @Repository
 public class BoardRepository {
@@ -54,6 +55,36 @@ public class BoardRepository {
 	public int update(SqlSessionTemplate sqlSession, Board board) {
 		// TODO Auto-generated method stub
 		return sqlSession.update("boardMapper.update", board);
+	}
+
+	public List<Board> selectImages(SqlSessionTemplate sqlSession) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("boardMapper.selectImages");
+	}
+
+	public String selectTest(SqlSessionTemplate sqlSession) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("boardMapper.selectTest");
+	}
+
+	public List<Reply> selectReply(SqlSessionTemplate sqlSession, int boardNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("boardMapper.selectReply", boardNo);
+	}
+
+	public int insertReply(SqlSessionTemplate sqlSession, Reply reply) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("boardMapper.insertReply", reply);
+	}
+
+	public Board boardAndReply(SqlSessionTemplate sqlSession, int boardNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("boardMapper.boardAndReply",boardNo);
+	}
+
+	public List<Board> findTopFiveBoard(SqlSessionTemplate sqlSession) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("boardMapper.findTopFiveBoard");
 	}
 	
 	

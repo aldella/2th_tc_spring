@@ -16,32 +16,52 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.spring.board.model.service.BoardServiceImp1;
 import com.kh.spring.board.model.vo.Board;
 import com.kh.spring.board.model.vo.PageInfo;
 import com.kh.spring.board.model.vo.PageTemplate;
+import com.kh.spring.board.model.vo.Reply;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequiredArgsConstructor
 @Slf4j
 public class BoardController {
-	
 	private final BoardServiceImp1 boardService;
+
+	@ResponseBody
+	@GetMapping("board-reply")
+	public Board boardAndReply(int boardNo) {
+		return boardService.boardAndReply(boardNo);
+	}
+	
+	@ResponseBody
+	@PostMapping("reply")
+	public String saveReply(Reply reply) {
+		log.info("reply객체 : {}", reply);
+		return boardService.insertReply(reply) > 0 ? "success" : "fail";
+	}
+	
+	@ResponseBody
+	@GetMapping(value="reply", produces="application/json; charset=utf-8;")
+	public String selectReply(int boardNo){
+		return new Gson().toJson(boardService.selectReply(boardNo));
+	}
+	
+	@GetMapping("image-board")
+	public String images(Model model) {
+		model.addAttribute("board", boardService.selectImages());
+		return "board/imageList";
+	}
 	
 	
-	/*
-	 * deleteById : Client(게시글 작성자)에게 정수형의 boardNo(BOARD테이블의 PK)를 전달 받아서 BOARD 테이블에 존재하는 STATUS 컬럼의 값을 'N'으로 갱신
-	 * @param boardNo : 각 행을 식별하기 위한 PK
-	 * @param filePath : 요청 처리 성공 시 첨부파일을 제거하기 위해 파일이 저장되어있는 경로 및 파일명
-	 * @return : 반환된 View의 논리적인 경로
-	 */
 	@PostMapping("board-update.do")
 	public String update(Board board, MultipartFile reupFile, HttpSession session) {
 		if(!reupFile.getOriginalFilename().equals("")) {
@@ -69,6 +89,7 @@ public class BoardController {
 							String filePath,
 							HttpSession session,
 							Model model) {
+		log.info("boardDelete.do호출");
 		if(boardService.delete(boardNo) > 0) {
 			if(!"".equals(filePath)) {
 				new File(session.getServletContext().getRealPath(filePath)).delete();
@@ -107,21 +128,6 @@ public class BoardController {
 		String changeName = "";
 		
 		if(!upfile.getOriginalFilename().equals("")) {
-			/*
-			originName = upfile.getOriginalFilename();
-			String ext = originName.substring(originName.lastIndexOf("."));
-			int num = (int)(Math.random()*1000+1);
-			String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-			String savePath = session.getServletContext().getRealPath("/resources/uploadFiles/");
-			changeName = "TH_"+currentTime+"_"+num+ext;
-			try {
-				upfile.transferTo( new File(savePath + changeName) );
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			*/
 			saveFile(upfile, session);
 			board.setOriginName(upfile.getOriginalFilename());
 			board.setChangeName(saveFile(upfile, session));
@@ -163,6 +169,8 @@ public class BoardController {
 		RowBounds rowBounds = new RowBounds( (currentPage-1)*boardLimit , boardLimit);
 		
 		List<Board> boardList = boardService.findByConditionAndKeyword(map, rowBounds);
+		
+		log.info("받아온결과가없으면null인지? {} ", (boardService.selectTest() == null ? "null임" : "null아님"));
 		
 		model.addAttribute("list",boardList);
 		model.addAttribute("pageInfo",pageInfo);

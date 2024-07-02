@@ -45,4 +45,9 @@ public class MemberServiceImp1 implements MemberService {
 		return 1;
 	}
 
+	public int idCheck(String checkId) {
+		// TODO Auto-generated method stub
+		return memberRepository.idCheck(sqlSession,checkId);
+	}
+
 }
