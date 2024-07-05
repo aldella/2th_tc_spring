@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<c:set var="hpath" value="<% request.getContextPath(); %>"></c:set>
 <html>
 <head>
 	<title>Home</title>
@@ -11,6 +12,6 @@
 	Hello world!  
 </h1>
 <P>  The time on the server is ${serverTime}. </P>
-<jsp:forward page="WEB-INF/views/main.jsp"></jsp:forward>
+<jsp:forward page="/member/loginform"></jsp:forward>
 </body>
 </html>

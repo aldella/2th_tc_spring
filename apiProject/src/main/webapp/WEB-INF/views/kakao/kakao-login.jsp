@@ -1,0 +1,43 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<style>
+	a {
+		display : inline-block
+	}
+</style>
+
+<body>
+<a>
+	<img id="login-btn" alt="" src="resources/img/kakao_login_medium_narrow.png"/>
+</a>
+
+<script>
+	document.getElementById('login-btn').onclick = () => {
+		let text='';
+		location.href=
+				'https://kauth.kakao.com/oauth/authorize' +
+				'?client_id=7c415afe1c27d9e3c6d607c7ab634426' +
+				'&redirect_uri=http://localhost/api/oauth' +
+				'&response_type=code' +
+				'&scope=profile_nickname,profile_image';
+		
+	};
+	
+	document.getElementById('logout').onclick = () => {
+		
+		location
+	}
+</script>
+</body>
+</html>

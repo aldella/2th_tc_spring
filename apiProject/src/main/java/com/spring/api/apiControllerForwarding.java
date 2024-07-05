@@ -26,4 +26,8 @@ public class apiControllerForwarding {
 	public String map() {
 		return "kakao/map";
 	}
+	@GetMapping("login")
+	public String login() {
+		return "kakao/kakao-login";
+	}
 }

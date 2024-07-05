@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="items"/>
+		<item key="selection" value="orderList"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="orderList"/>
+			<item value="order-list-row-4"/>
+			<item value=".input-group"/>
+			<item value="only"/>
+			<item value="read"/>
+			<item value="read only"/>
+			<item value="readonly"/>
+			<item value="input-group"/>
+			<item value="fa fa-user"/>
 			<item value="items"/>
 			<item value="console"/>
 			<item value="myapp"/>
 			<item value="jstl"/>
 			<item value="br"/>
 			<item value="gson"/>
-			<item value="updateNo"/>
-			<item value="update"/>
-			<item value="updateModal"/>
-			<item value="noticeno"/>
-			<item value="updateContent"/>
-			<item value="updateTitle"/>
-			<item value="updateWriter"/>
-			<item value="작성자"/>
-			<item value="작성자\"/>
 		</list>
 		<list key="replacehistory">
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="1300"/>
-		<item key="DIALOG_Y_ORIGIN" value="335"/>
+		<item key="DIALOG_X_ORIGIN" value="1404"/>
+		<item key="DIALOG_Y_ORIGIN" value="362"/>
 		<item key="DIALOG_WIDTH" value="288"/>
 		<item key="DIALOG_HEIGHT" value="408"/>
 		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
